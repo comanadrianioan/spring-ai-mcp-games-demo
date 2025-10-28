@@ -1,0 +1,364 @@
+{
+  "name": "Games",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "azure-openai-text-embedding-3-small-1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        688
+      ],
+      "id": "5794cf80-6c82-42e2-a350-7ea43838d2dd",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "v6ONvl7PhVPUjhEv",
+          "name": "OpenAi chips"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://host.docker.internal:8080/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        304,
+        208
+      ],
+      "id": "4d1e68ba-8987-4107-81f1-6289113ada86",
+      "name": "Game Rewards"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        464
+      ],
+      "id": "1150c6ea-a662-477a-b0dd-f0d55f041fbe",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "provides informations about reward distributions and owners of the following games: poker, blackjack, roulette, slots and bingo",
+        "memoryKey": {
+          "__rl": true,
+          "value": "internal_games",
+          "mode": "list",
+          "cachedResultName": "internal_games"
+        },
+        "topK": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        208
+      ],
+      "id": "9393925b-f700-408d-aa2e-e5b3dc923b67",
+      "name": "RAG"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "value": "internal_games",
+          "mode": "list"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        176,
+        464
+      ],
+      "id": "f1dec5ad-4e8d-4936-baae-000bf636e0ed",
+      "name": "IMPORTER"
+    },
+    {
+      "parameters": {
+        "content": "## AI Chat Bot - Games Information",
+        "height": 448,
+        "width": 1296
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        -80
+      ],
+      "id": "66ae0531-2d1b-44ae-8a7e-0fa2aca4447d",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## AI Chat Bot - RAG",
+        "height": 448,
+        "width": 1296,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        384
+      ],
+      "id": "e2db9a3c-54a0-4ea7-a332-8aae81182472",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        208
+      ],
+      "id": "2bb82548-0808-4134-86dd-c752ea51d863",
+      "name": "Chat Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -496,
+        0
+      ],
+      "id": "f6402e1f-6c91-404f-9217-0958f297c907",
+      "name": "Chat",
+      "webhookId": "bdad670b-d094-4b60-ae03-51f87579079f"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful AI assistant that provides information about game features such as poker game, blackjack game, roulette game, slots game and bingo game.\nThe user will ask questions about features, and you will provide relevant information based on the available data.\nIf you don't know the answer, you will say \"I don't know\"."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        0
+      ],
+      "id": "e85e7328-c28c-457d-aa3d-e22d6e7c5425",
+      "name": "Game Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "azure-openai-gpt-4.1-2025-04-14",
+          "mode": "list",
+          "cachedResultName": "azure-openai-gpt-4.1-2025-04-14"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        208
+      ],
+      "id": "17358ac8-0666-41a6-911d-1a28e67fd265",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "v6ONvl7PhVPUjhEv",
+          "name": "OpenAi chips"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        464
+      ],
+      "id": "fc6a912f-9748-4a09-897b-80b7d3132045",
+      "name": "Import"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/data/shared/games.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        464
+      ],
+      "id": "0d6819b6-6313-466e-86f1-d66996575f72",
+      "name": "Read game.txt"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        688
+      ],
+      "id": "8c4a24aa-d92c-4c70-b7f4-943101cde23c",
+      "name": "Data Loader"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "IMPORTER",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "RAG",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Game Rewards": {
+      "ai_tool": [
+        [
+          {
+            "node": "Game Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "IMPORTER",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG": {
+      "ai_tool": [
+        [
+          {
+            "node": "Game Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IMPORTER": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Game Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat": {
+      "main": [
+        [
+          {
+            "node": "Game Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Game Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Import": {
+      "main": [
+        [
+          {
+            "node": "Read game.txt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read game.txt": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "IMPORTER",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2399d845-f00e-4b27-b562-7f34095737a2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "NCvXUQVkfFTx8ZA8",
+  "tags": []
+}

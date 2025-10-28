@@ -1,0 +1,31 @@
+= Game Features Catalog =
+
+== Poker Game ==
+'''Owner:''' Chips'n'Dale
+'''Description:''' Poker feature that rewards players primarily with chips, with smaller amounts of coins, gems, and experience.
+'''Primary reward:''' Chips (70%)
+'''Reward mix:''' Chips 70% · Coins 10% · Gems 10% · XP 10%
+
+== Blackjack Game ==
+'''Owner:''' Blackjack Team
+'''Description:''' Blackjack feature emphasizing chip payouts, complemented by coins, gems, and experience.
+'''Primary reward:''' Chips (60%)
+'''Reward mix:''' Chips 60% · Coins 20% · Gems 10% · XP 10%
+
+== Roulette Game ==
+'''Owner:''' Roulette Team
+'''Description:''' Roulette feature with a balanced chip focus and notable coin rewards, plus gems and experience.
+'''Primary reward:''' Chips (50%)
+'''Reward mix:''' Chips 50% · Coins 30% · Gems 10% · XP 10%
+
+== Slots Game ==
+'''Owner:''' Slots Team
+'''Description:''' Slots feature distributing equally between chips and coins, with smaller gems and experience.
+'''Primary rewards:''' Chips & Coins (40% each)
+'''Reward mix:''' Chips 40% · Coins 40% · Gems 10% · XP 10%
+
+== Bingo Game ==
+'''Owner:''' Bingo Team
+'''Description:''' Bingo feature centered on coin rewards, with lesser chips, gems, and experience.
+'''Primary reward:''' Coins (50%)
+'''Reward mix:''' Chips 30% · Coins 50% · Gems 10% · XP 10%
